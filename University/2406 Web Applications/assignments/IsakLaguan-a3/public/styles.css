@@ -1,0 +1,34 @@
+#info p{
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.column {
+    float: left;
+}
+
+.left {
+    width: 25%;
+}
+
+.middle {
+    width: 40%; 
+}
+
+.right {
+    width: 29%; 
+}
+
+button {
+    width: 140px;
+    padding: 15px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer; 
+    background-color: cornflowerblue;
+}
+
+input[type=textbox]{
+    width: 100px;
+}

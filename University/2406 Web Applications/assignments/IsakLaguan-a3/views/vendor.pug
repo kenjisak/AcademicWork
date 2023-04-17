@@ -1,0 +1,55 @@
+html(lang='en')
+    head 
+        title Vendor Page
+        meta(charset="UTF-8")
+        link(rel="stylesheet", href="/styles.css")
+    body(onload="init()")
+        script(src="/client.js")
+        include ../partials/header 
+        //- displays vendor info and inputs for updating purposes
+        div#info    
+            h2 #{vendor.name}
+            p Vendor name: 
+                input(type="textbox", id="vendorname", value=vendor.name)
+            p Delivery fee: 
+                input(type="textbox", id="vendordelfee", value=vendor.delivery_fee)
+            p Minimum order: 
+                input(type="textbox", id="vendorminorder", value=vendor.min_order)
+            button(type="button" onclick='updatevendor()') Save
+        div#main 
+            //- left column displays all categories the vendor has
+            div(class="column left", id="left") 
+                h3 Categories
+                each category in Object.keys(vendor.supplies)
+                    p #{category}
+            //- middle column displays all items of vendor separated by their categories
+            div(class="column middle", id="middle")
+                h3 Supply List
+                each category in Object.keys(vendor.supplies)
+                    div(id=category)
+                        h4 #{category}
+                        each item in Object.keys(vendor.supplies[category])
+                            p(id=item) #{vendor.supplies[category][item].name} 
+                                | ID: #{item}   
+                                | $#{vendor.supplies[category][item].price.toFixed(2)}
+                                | stock=#{vendor.supplies[category][item].stock}
+                            | #{vendor.supplies[category][item].description}
+                            br
+                            br
+            //- right column displays inputs for adding new items
+            div(class="column right", id="right")
+                h3 Add an Item
+                select#categoryselect
+                    option(value="", disabled="", selected="") Select a Category 
+                    each category in Object.keys(vendor.supplies)
+                        option(value=category) #{category}
+                p Item name: 
+                    input(type="textbox", id="itemname")
+                p Item description: 
+                    input(type="textbox", id="itemdesc")
+                p Item stock: 
+                    input(type="textbox", id="itemstock")
+                p Item price: 
+                    input(type="textbox", id="itemprice")
+                button(type="button" onclick='additem()') Add Item
+

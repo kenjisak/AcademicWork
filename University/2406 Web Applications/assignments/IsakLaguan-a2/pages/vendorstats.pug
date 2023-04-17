@@ -1,0 +1,13 @@
+html(lang='en')
+    head 
+        title The Vendor Statistics Page 
+        meta(charset="UTF-8")
+        link(rel="stylesheet", href="styles.css")
+    body 
+        include ../partials/header 
+        div#main(style="font-size: 200%;") 
+            h4 #{vendor.name} 
+            h5 The total number of orders received: #{vendor.ordernum}
+            h5 Average order total: $ #{vendor.totalcount.toFixed(2)}
+            h5 Most popular item: #{vendor.popitem}
+            

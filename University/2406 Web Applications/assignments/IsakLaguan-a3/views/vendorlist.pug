@@ -1,0 +1,13 @@
+html(lang='en')
+    head 
+        title Online Store
+        meta(charset="UTF-8")
+    body 
+        script(src="/client.js")
+        include ../partials/header 
+        //- displays each vendor name with hyper link to their page
+        div#main(style="font-size: 200%;") 
+            h4 Vendors 
+            each vendor in vendors
+                a(href='http://localhost:3000/vendors/' + vendor.id style="font-size: 70%")= vendor.name
+                br

@@ -1,0 +1,17 @@
+{
+  "name": "a2-base-code",
+  "version": "1.0.0",
+  "description": "Kenji Isak Laguan\r 101160737",
+  "main": "client.js",
+  "dependencies": {
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

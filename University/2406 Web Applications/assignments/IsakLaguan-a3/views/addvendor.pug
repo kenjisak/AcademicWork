@@ -1,0 +1,20 @@
+html(lang='en')
+    head 
+        title Online Store
+        meta(charset="UTF-8")
+    body 
+        script(src="/client.js")
+        include ../partials/header  
+        div#main(style="font-size: 170%;") 
+            h2 Add a Vendor
+            | Vendor name: 
+            input(type="textbox", id="vendorname")
+            br
+            | Delivery fee: 
+            input(type="textbox", id="vendordelfee")
+            br
+            | Minimum order: 
+            input(type="textbox", id="vendorminorder")
+            br
+            br
+            button(type="button", onclick="addvendor()") Add Vendor

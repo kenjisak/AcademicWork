@@ -1,0 +1,46 @@
+select {
+    position: absolute;
+    font-size: large;    
+}
+html{
+    background-color: beige;
+}
+p{
+    font-size: medium;
+    font-weight: 100;
+}
+img{
+    width: 20px;
+}
+/* . access by class name */
+.column {
+    float: left;
+}
+.left {
+    width: 25%;
+}
+.middle {
+    width: 40%;
+}
+.supplyCategory{
+    font-size: medium;
+    font-weight: bold;
+}
+.supply{
+    font-size: medium;
+    font-weight: 100;
+}
+/* # access by id name */
+#main{
+    font-size: large;
+    font-weight: bold;
+}
+#vendor-select{
+    right: 0;
+}
+#right{
+    background-color: rgb(255, 215, 221);
+    box-shadow: 5px 5px;
+} 
+
+
