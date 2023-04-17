@@ -1,0 +1,38 @@
+firstname = input ("whats your first name?")
+lastname = input ("whats your last name?")
+agestring = input ("how old are you?")
+age = int(agestring)
+
+print("Are you full time or partime in school?")
+print("1. full time\n2. part time")
+
+fopstring = input("Enter the number: ")
+fop = int(fopstring)
+
+if (fop == 1):
+	print("Please enter all your 5 course codes")	
+	cc1 = input(" ")
+	cc2 = input(" ")
+	cc3 = input(" ")
+	cc4 = input(" ")
+	cc5 = input(" ")
+	print("\n-----------------\nAll info:")
+	print("\nFirst Name:{:>6s}\nLast Name:{:>6s}\nAge:{:>10d}".format(firstname,lastname,age))
+	print("\nCourses:\n")	
+	print("{:>10s}".format(cc1))
+	print("{:>10s}".format(cc2))
+	print("{:>10s}".format(cc3))
+	print("{:>10s}".format(cc4))
+	print("{:>10s}".format(cc5))
+else:
+	print("Please enter all your 3 course codes")	
+	cc1 = input(" ")
+	cc2 = input(" ")
+	cc3 = input(" ")
+	print("\n-----------------\nAll info:")
+	print("\nFirst Name:{:>6s}\nLast Name:{:>6s}\nAge:{:>10d}".format(firstname,lastname,age))
+	print("\nCourses:\n")	
+	print("{:<10s}".format(cc1))
+	print("{:<10s}".format(cc2))
+	print("{:<10s}".format(cc3))
+
