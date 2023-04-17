@@ -1,0 +1,75 @@
+1. 
+object compile: 
+
+Objectfilename.o: Objectfilename.h Objectfilename.cc
+	g++ -c Objectfilename.cc
+
+executable compile:
+
+all: exefilename
+
+exefilename: exefilename.cc Objectfilename.o 
+	g++ -o exefilename exefilename.cc Objectfilename.o 
+
+2. 
+entity objects - These should model real-world objects or information tracked by the program
+control objects - Objects in charge of program flow
+boundary objects - Boundary objects manage the interaction of the application with foreign entities
+collection objects - Storage of multiple entities of the same type or class
+
+3.
+input param : void Student::setName(string n){}
+output param : bool Library::getStudent(const string& name, Student** student){}
+return value: return varname;
+
+4.
+constant objects - is an object and once initialized, the data members of the object cannot chang
+constant member functions - function wont modify object
+constant data members - data member wont be modified
+
+5.
+attributes
+operations
+access specifiers for attributes and operations
+associations
+composition 
+inheritance
+
+does not show:
+ctor 
+dtor 
+getters 
+setters
+objects 
+
+6.
+Encapsulation is a process of combining data members and functions in a single unit called class
+if you don’t need to change the object, make member functions constant
+ensures they can be called no matter what
+
+7.
+Statically allocated array of objects
+    Object arrayname[MAX_SIZE];
+Statically allocated array of object pointers
+    Object* arrayname[MAX_SIZE];
+Dynamically allocated array of objects
+    Object* arrayname = new Object[MAX_SIZE];
+Dynamically allocated array of objects pointers
+    Object** arrayname;
+    arrayname = new Object*[MAX_SIZE];
+
+8.
+default Object();
+parameters Object(params);
+copy constructors Object(Object&);
+
+9.
+Object arrayname = new Object();
+
+Object arrayname;
+
+difference is how memory is stored on the heap. static mem size can not change while dynamic can
+
+10. 
+A namespace is a declarative region that provides a scope to the identifiers (the names of types, functions, variables, etc) inside it. 
+Namespaces are used to organize code into logical groups and to prevent name collisions that can occur especially when your code base includes multiple libraries
