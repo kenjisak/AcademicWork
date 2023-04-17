@@ -1,0 +1,19 @@
+execve("./hello-static", ["./hello-static"], 0x7ffdb090cc80 /* 34 vars */) = 0
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffe54c4fd20) = -1 EINVAL (Invalid argument)
+brk(NULL)                               = 0x1a33000
+brk(0x1a33dc0)                          = 0x1a33dc0
+arch_prctl(ARCH_SET_FS, 0x1a333c0)      = 0
+set_tid_address(0x1a33690)              = 27080
+set_robust_list(0x1a336a0, 24)          = 0
+rseq(0x1a33d60, 0x20, 0, 0x53053053)    = 0
+uname({sysname="Linux", nodename="comp3000", ...}) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+readlink("/proc/self/exe", "/home/student/comp3000/tut2/hell"..., 4096) = 40
+getrandom("\x89\x49\x19\x3e\xd0\x98\x6e\x1b", 8, GRND_NONBLOCK) = 8
+brk(0x1a54dc0)                          = 0x1a54dc0
+brk(0x1a55000)                          = 0x1a55000
+mprotect(0x4c1000, 16384, PROT_READ)    = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0), ...}, AT_EMPTY_PATH) = 0
+write(1, "Hello world!\n", 13)          = 13
+exit_group(0)                           = ?
++++ exited with 0 +++

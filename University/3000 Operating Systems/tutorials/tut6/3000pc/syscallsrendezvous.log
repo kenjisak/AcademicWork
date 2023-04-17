@@ -1,0 +1,66 @@
+234194 execve("./3000pc-rendezvous", ["./3000pc-rendezvous", "1", "1", "1"], 0x7fff28052bc0 /* 34 vars */) = 0
+234194 brk(NULL)                        = 0x55637f07a000
+234194 arch_prctl(0x3001 /* ARCH_??? */, 0x7fffda7bc550) = -1 EINVAL (Invalid argument)
+234194 mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fcac79a8000
+234194 access("/etc/ld.so.preload", R_OK) = -1 ENOENT (No such file or directory)
+234194 openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+234194 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=45351, ...}, AT_EMPTY_PATH) = 0
+234194 mmap(NULL, 45351, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7fcac799c000
+234194 close(3)                         = 0
+234194 openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+234194 read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+234194 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+234194 pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+234194 pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0i8\235HZ\227\223\333\350s\360\352,\223\340."..., 68, 896) = 68
+234194 newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+234194 pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+234194 mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7fcac7774000
+234194 mmap(0x7fcac779c000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7fcac779c000
+234194 mmap(0x7fcac7931000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7fcac7931000
+234194 mmap(0x7fcac7989000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7fcac7989000
+234194 mmap(0x7fcac798f000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7fcac798f000
+234194 close(3)                         = 0
+234194 mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7fcac7771000
+234194 arch_prctl(ARCH_SET_FS, 0x7fcac7771740) = 0
+234194 set_tid_address(0x7fcac7771a10)  = 234194
+234194 set_robust_list(0x7fcac7771a20, 24) = 0
+234194 rseq(0x7fcac77720e0, 0x20, 0, 0x53053053) = 0
+234194 mprotect(0x7fcac7989000, 16384, PROT_READ) = 0
+234194 mprotect(0x55637eeda000, 4096, PROT_READ) = 0
+234194 mprotect(0x7fcac79e2000, 8192, PROT_READ) = 0
+234194 prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+234194 munmap(0x7fcac799c000, 45351)    = 0
+234194 mmap(NULL, 1696, PROT_READ|PROT_WRITE, MAP_SHARED|MAP_ANONYMOUS, -1, 0) = 0x7fcac79e1000
+234194 clone(child_stack=NULL, flags=CLONE_CHILD_CLEARTID|CLONE_CHILD_SETTID|SIGCHLD, child_tidptr=0x7fcac7771a10) = 234195
+234194 getpid( <unfinished ...>
+234195 set_robust_list(0x7fcac7771a20, 24 <unfinished ...>
+234194 <... getpid resumed>)            = 234194
+234194 futex(0x7fcac79e1050, FUTEX_WAIT_BITSET|FUTEX_CLOCK_REALTIME, 0, NULL, FUTEX_BITSET_MATCH_ANY <unfinished ...>
+234195 <... set_robust_list resumed>)   = 0
+234195 getpid()                         = 234195
+234195 openat(AT_FDCWD, "/dev/urandom", O_RDONLY) = 3
+234195 read(3, "\n\311\366 ", 4)        = 4
+234195 close(3)                         = 0
+234195 futex(0x7fcac79e1050, FUTEX_WAKE, 1) = 1
+234194 <... futex resumed>)             = 0
+234194 futex(0x7fcac79e1000, FUTEX_WAKE, 1) = 0
+234195 write(2, "Producer sleeping for 1 second.."..., 34 <unfinished ...>
+234194 newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x1), ...}, AT_EMPTY_PATH) = 0
+234195 <... write resumed>)             = 34
+234195 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+234194 getrandom("\xae\x39\x01\x00\x81\xe2\x95\x09", 8, GRND_NONBLOCK) = 8
+234194 brk(NULL)                        = 0x55637f07a000
+234194 brk(0x55637f09b000)              = 0x55637f09b000
+234194 write(1, "Word 1: Victor\n", 15) = 15
+234194 write(2, "Consumer sleeping for 1 second.."..., 34) = 34
+234194 clock_nanosleep(CLOCK_REALTIME, 0, {tv_sec=1, tv_nsec=0},  <unfinished ...>
+234195 <... clock_nanosleep resumed>0x7fffda7bc540) = 0
+234195 write(2, "Producer finished.\n", 19) = 19
+234195 exit_group(0)                    = ?
+234195 +++ exited with 0 +++
+234194 <... clock_nanosleep resumed>{tv_sec=0, tv_nsec=2555443}) = ? ERESTART_RESTARTBLOCK (Interrupted by signal)
+234194 --- SIGCHLD {si_signo=SIGCHLD, si_code=CLD_EXITED, si_pid=234195, si_uid=1000, si_status=0, si_utime=0, si_stime=0} ---
+234194 restart_syscall(<... resuming interrupted clock_nanosleep ...>) = 0
+234194 write(2, "Consumer finished.\n", 19) = 19
+234194 exit_group(0)                    = ?
+234194 +++ exited with 0 +++
