@@ -1,0 +1,13 @@
+html(lang='en')
+    head 
+        title Recipe App Recipe Page
+        meta(charset="UTF-8")
+    body 
+        div#main(style="font-size: 130%")
+            h2 #{recipe.name}
+            p Preptime: #{recipe.preptime}
+            p Cooktime: #{recipe.cooktime}
+            p Description: #{recipe.description}
+            p Ingredient List: 
+                each ingredient in recipe.ingredients
+                    li #{ingredient.amount} #{ingredient.unit} #{ingredient.name}

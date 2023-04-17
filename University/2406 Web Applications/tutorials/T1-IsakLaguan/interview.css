@@ -1,0 +1,15 @@
+h1      {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 200%;
+    margin: 20px;
+}
+label   {
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 120%;
+    margin-left: 25px;
+    vertical-align: middle;
+}
+input   {
+    margin-right: -20px;
+    vertical-align: middle;
+}

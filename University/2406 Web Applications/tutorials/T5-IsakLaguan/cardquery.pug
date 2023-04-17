@@ -1,0 +1,15 @@
+html(lang='en')
+    head 
+        title List the first 25 cards
+        meta(charset="UTF-8")
+    body 
+        div#main(style="font-size: 200%;") 
+            
+            if Object.keys(cardslist).length == 1
+                h4 No Matching qeury for #{cardslist.query}:
+            else 
+                h4 Matching qeury for #{cardslist.query}:
+                each card in cardslist
+                    if(card.id != undefined)
+                        a(href='http://localhost:3000/cards/' + card.id style="font-size: 70%")= card.name + "(" + card.id + ")"
+                    br

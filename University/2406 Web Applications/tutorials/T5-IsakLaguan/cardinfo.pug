@@ -1,0 +1,28 @@
+html(lang='en')
+    head 
+        title List the first 25 cards
+        meta(charset="UTF-8")
+    body 
+        div#main(style="font-size: 150%")
+            h2 #{cardinfo.name}
+            if cardinfo.hasOwnProperty("mechanics")
+                h3 Mechanics:
+                each skill in cardinfo.mechanics
+                    li= skill 
+            p Unique card ID: #{cardinfo.id}
+            if cardinfo.hasOwnProperty("rarity")
+                if cardinfo.rarity == "FREE" 
+                    p Rarity stars: *
+                else if cardinfo.rarity == "COMMON" 
+                    p Rarity stars: **
+                else if cardinfo.rarity == "RARE" 
+                    p Rarity stars: ***
+                else if cardinfo.rarity == "EPIC" 
+                    p Rarity stars: ****
+                else if cardinfo.rarity == "LEGENDARY" 
+                    p Rarity stars: *****
+            p Card class is #{cardinfo.cardClass}
+            p Card is from set: #{cardinfo.set}
+            p #{cardinfo.name} is of type #{cardinfo.type}
+            p Artist: #{cardinfo.artist}
+            p Card Text: #{cardinfo.text}

@@ -1,0 +1,28 @@
+h1 {
+    font-size: 16pt;
+    background-color: rgb(255, 247, 0);
+    color: rgb(40, 40, 40);
+  }
+
+  p {
+    font-size: 12pt;
+    font-family: arial;
+    margin-left: 10px;
+  }
+
+  img {
+    margin-left: 10px;
+    padding-right: 20px;
+  }
+
+  strong {
+    color: rgb(100, 100, 100);
+  }
+
+  em {
+    color: darkblue;
+  }
+
+  span {
+    color: blue;
+  }

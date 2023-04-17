@@ -1,0 +1,10 @@
+html(lang='en')
+    head 
+        title Recipe App Browse Page
+        meta(charset="UTF-8")
+    body 
+        div#main(style="font-size: 200%;") 
+            h4 Recipes
+            each recipe in recipes
+                a(href='http://localhost:3000/recipes/' + recipe.id style="font-size: 70%")= recipe.name
+                br

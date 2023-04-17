@@ -1,0 +1,10 @@
+html(lang='en')
+    head 
+        title List the first 25 cards
+        meta(charset="UTF-8")
+    body 
+        div#main(style="font-size: 200%;") 
+            h4 List the first 25 cards:
+            each card in cardsData
+                a(href='http://localhost:3000/cards/' + card.id style="font-size: 70%")= card.name + "(" + card.id + ")"
+                br
