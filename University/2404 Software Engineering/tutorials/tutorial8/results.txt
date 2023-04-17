@@ -1,0 +1,37 @@
+
+***************************************************************************
+* Compilation
+***************************************************************************
+Executing: make clean
+Executing: make all
+Executing: ./test
+FH_Part with fh_inpect = 100 being installed
+All tests passed
+
+Test passed
+Executing: ./test
+IT_Part with it_inpect = 100 days being installed
+All tests passed
+
+Test passed
+Executing: ./test
+FHIT_Part with fh_inpect = 100  hours and it_inspect = 400 days being installed
+All tests passed
+
+Test passed
+Executing: ./test
+FHIT_Part with fh_inpect = 100  hours and it_inspect = 200 days being installed
+All tests passed
+
+Test passed
+Executing: ./test
+FHIT_Part with fh_inspect = 100 hours and it_inspect = 200 days being installed
+All tests passed
+
+Test passed
+
+
+***************************************************************************
+* Mark: 10/10
+***************************************************************************
+

@@ -1,0 +1,53 @@
+
+***************************************************************************
+* Compilation
+***************************************************************************
+Executing: make clean
+Executing: make all
+
+Correct order test
+
+Executing: ./test
+Adding 5 students to q
+Removing 5 students from q
+
+Test passed
+
+Edge case test
+
+Executing: ./test
+Queue is empty!
+Deleting all but one student ...
+Adding back 4 students
+Deleting all students
+Adding back 5 students
+Printing queue...
+
+Student name:   Abe
+Student Number: 000
+
+
+Student name:   Bae
+Student Number: 111
+
+
+Student name:   Cedric
+Student Number: 222
+
+
+Student name:   Deb
+Student Number: 333
+
+
+Student name:   Elise
+Student Number: 444
+
+Tests complete
+
+Test passed
+
+
+***************************************************************************
+* Mark: 6/6
+***************************************************************************
+
