@@ -1,0 +1,124 @@
+COMP 3000 2022F Assignment 3
+Name: Isak Laguan
+Student ID: 101160737
+
+Collaborators: https://unix.stackexchange.com/questions/183717/whats-a-uts-namespace, https://en.wikipedia.org/wiki/Linux_namespaces 
+
+1. [2] Download and inspect 3000contain.sh. Is there a risk of data loss from running this script? Specifically, how much of a risk is there from each rm command? Be specific.
+
+there is a big risk of data loss as the sh script wants to run as root on line 19 checks if UID is anything other than root UID which is 0 when it wants to run the script as root. so we need to give the right execute permissions with chmod a+x 3000contain.sh then we can run it as root with sudo ./3000contain.sh
+there are 3 rm commands:
+rm image -  removes file named 3000fsimage, since when we create the containerized environment. itll create this file. so we remove it before dd from /dev/zero and copying stuff from there to a new 3000fsimage file.
+            so there is definite data loss right there just because were removing the 3000fsimage file before copying data over from /dev/zero and creating it again
+rm mp - removes file named 3000fs, since when we create the containerized environment. it un mounts the filesystem 3000fs and removes and deletes that file. which theres definite data loss there again as youre removing a file. 
+        now in line 29 it unmounts the 3000fs/dev directory so there might be some data loss for /dev if things go wrong there as well and if it didnt properly unmount it. and deletes the mp/ 3000fs filesystem anyway.
+rm setup - removes file named 3000setupfs.sh, since when we create the containerized environment. lines 57-60 just creates a shell script so removing and deleting jsut the 3000setupfs.sh script has dataloss since youre deleting the file but nothing really important since the setup script already happend/been called before rm and we always write a new one anyway.
+
+2. [1] Run 3000contain.sh. After 3000contain.sh runs, you're put in a new shell where / is now the contents of 3000fs, and you can't see anything that wasn't in 3000fs. Exiting the shell gets you back to where you were. After exiting, how do you get back to the contained environment?
+
+to get back into the containerized environment, need to be in the 3000fs folder then we would use sudo unshare --root=. -f -p --mount-proc to enter and input the password for students.
+as hinted in the last line in the 3000contain.sh
+
+3. [2] How does the output of ps differ when run inside the contained environment versus outside? What part of 3000contain.sh caused this difference?
+
+inside the contained environment it just displays the headers for PID,USER, and COMMAND but not the running processes like its bash shell, and ps
+while outside in the normal shell, it shows the PID,TTY,TIME,and CMD headers with the runnign processes bash and ps.
+
+when you use which command to find out where the ps command path is. in the contained environment its /bin/ps while in the normal shell outside its /usr/bin/ps.
+so at the start the directory path is already different. more investigation of the code, line 42 copys /bin/bash into the bin directory for the contained environment.
+so the real file path of ps is actually /bin/bash/ps in contained environment versus /usr/bin/ps outside in the shell. different directory paths can still support the same command however,
+bash isnt a directory so i cant inspect the command list as expected. where as looking through the command list whith the given paths for each shell we can see a big difference whats supported where
+the container has a small list while the normal shell has a very long list. usr directory in the container also doesnt support the ps command.
+main difference id say is just line 42 copying from a different path(which they can have different ways to support how ps runs as we can see)for the container vs where the ps command is actually supported iwth the file path being /usr/bin/ps and not /bin/bash/ps or /bin/ps
+
+line 43 may also be the cause of why theyre different.
+
+4. [2] What does line 58 of 3000contain.sh do? When does it run? Be sure to explain all of its effects.
+
+line 57-60 are a bunch of echo commands to create a shell script ran by busy box. line 58 is for creating symlinks or hardlinkrs for the busybox commands.
+it runs in line 63 when the whole shell script of 3000setupfs.sh is excuted with chroot . /$SETUP. removing the rm command for the script file to be able to view it after the script is ran. the first line that was echod is actually commented out 
+so i believe that line isnt used atm so the the symlink line is actually the first to be ran when the script gets called in line 63.
+
+5. [2] What is the largest file we can create in the confined environment (once initialized by 3000contain.sh)? What determines this limit?
+
+the largest file that we can create in the confined environment is 8192*60000 which is 491520000 bytes or 491.52 MB or almost half a GB. 
+the limit is determined by the dd(line 25) with the number of bytes written for the 3000fs filesystem we created. where the bs aka block size is 8192 bytes and count is the number of blocks which is 60000 defined as BLOCKS.
+
+6. [2] If you fill up the disk in the host system, how will it change the amount of data that can be stored in the confined environment? Does this depend on what has been previously stored in the confined environment? (Note you may want to test by creating files by dd'ing from /dev/urandom.)
+
+yes if you fill up the disk in the host system it can technically change the amount of data that can be stored in the confined environment. 
+what i tested was i filled up 236 MB worth of data into a test file from /dev/urandom.and added cp /home/student/comp3000/a3/test home at line 41 in 3000contain.sh
+    what im trying to simulate is if i filled up one of the directorys that you copy over into the confined environment. so just copying over that test file compared to the normal confined environment. 
+    there is an increase of 60% usage in /dev/loop5 filesystem. which that filesystem only has 382.6 MB of storage. so filling up the host systems disk will change how much
+    available storage that can be held in confined environment depending on which directorys in the host sytem that you fill up and if those directorys are what gets copied over to the confined environment when running the 3000contain.sh script
+
+no this does not depend on what has been stored previously in the confined environment as it gets rebuilt everytime we run the script file 
+when you build and theres a line to rm MP/3000fs folder before mkdir all the directorys and cp/copying data into the filesystem again. 
+
+7. [2] Many files in our confined environment refer to the same inode. What was the original name of this inode? How do you know?
+
+inode 19 has around 270 files that has that refer to the same inode: I redirected the output to txt files to be able to search through and view all outputs and search in vscode
+        sudo ls -lRai > out.txt to display all files and sub files/directories and theres noticeably lot of files that refer to the same inode 19. 
+        sudo find -inum 19 > out.txt to find the files with inode 19 and the output in vscode shows how many lines/files there are with that same inode 19
+
+now if we remove line 58 in 3000contain.sh and list all the files with the inode 19 again using the second line of code above in 3000fs.
+we will see that /usr/bin/busybox is the only file with inode 19 and is the original file.so the orignal name of the file is busybox.
+
+8. [1] Copy and make nano work in the new environment. What files did you have to copy to get it to work? How did you know to copy them?
+
+i made it work and i had to copy 2 files: these are the lines i added into 3000contain.sh script inserted at line 43. 
+    cp /usr/bin/nano bin/nano
+    cp /usr/lib/x86_64-linux-gnu/libncursesw.so.6 lib
+the first line is to copy the command nano and add it into the new environment
+the second line is to copt the shared library object file nano needed to run
+
+i knew to copy them because i tried copying just the file where nano command was located(found by using which nano in the normal shell)
+    cp /usr/bin/nano bin/nano on line 43
+to the new environment and it says its still missing a shared library object file which is libcursesw.so.6(found this file path by using find . -name libcursesw.so.6)
+
+9. [2] How can you add a user "contain" to 3000fs using useradd (and nothing else)? Make sure the user also is in a new group "contain" and has a home directory /home/contain (in 3000fs). This user should only be visible when you're in the confined environment. How did you confirm that your answer works?
+
+you can add user contain to the environment by using this line:
+    sudo useradd -R /home/student/comp3000/a3/3000fs -m -U contain   
+        (Recommended)
+    or
+    sudo useradd -R /home/student/comp3000/a3/3000fs -U contain
+        however this doesnt show the contain user in the home directory(im not sure if im not waiting for it to update long enough or why this is the case)
+
+the -R option is for the directory to chroot into with the given file path of our environment
+the -m option is to create the users home directory default is /home (you may not need this option since home directory is already created but still works anyway and offer the same results aside from being able to see the contain user in the home directory so preffered to include -m option)
+the -U is to create a group with the same name as the contain user
+
+i confirmed my answer works since i cat /etc/passwd and /etc/group for both the normal shell and the contained environment and in the normal shell the contain user and group doesnt show
+    while in the contained environment the contain user shows in the passwd file with:
+        contain:x:1005:1005::/home/contain
+    while in the contained environment the contain user shows in the group file with:
+        contain:x:1005:
+so this proves that contain user is only visible in the contained environment, the group is set to contain, and the home directory is /home/contain
+
+10. [2] How can you mount the main root filesystem inside of the confined environment? What part of 3000contain.sh made this possible?
+
+you can use df to find the amount of available disk space for file systems. in this case were using to see which is the main file system in the normal shell which is:
+    /dev/mapper/vg0-lv--0 with 92% usage compared to the 1-2% usage of the other filesystems. so this is our main root filesystem
+
+to be able to mount the main root filesystem we would need to first create a new directory for the fs to mount to inside the contained environment with mkdir then we can mount the fs to it:
+    mkdir directoryname
+    mount /dev/mapper/vg0-lv--0 /directoryname
+
+in this case i used mainrootfilesystem as the directory name. we can then df inside the container as well to verify and see that the main root filesystem is mounted on our specified directory 
+
+line 60 echo 'mount -t devtmpfs udev /dev' >> $SETUP and line 63 when it runs the set up script is responsible for allowing the mount to be possible.
+since this mounts the udev from the normal shell to the dev directory in the container so we have access to all the udev files which have /dev/mapper/vg0-lv--0 and i cd to the dev directory and then mapper and ls to verify the vg0-lv--0 file exists.
+now if you remove this line you can see that dev directory is empty and wont be able to mount.
+
+11. [2] How can you change the hostname in the confined environment to "mycontainer" without changing the hostname of the host system? (Note that the "hostname" command can be used to check and set a system's hostname.) Is this change persistent, i.e., will the hostname stay the same when you exit and re-enter the confined environment?
+
+using the line sudo unshare -u --root=. -f -p --mount-proc (notice the added option of -u) allows get back into the confined enviroment and lets us unshare UTS namespace
+    where UTS namespaces allows to have different host and domain names
+this will allow us to be able to change just the hostname of the confined environment and not the host system.
+we then use hostname mycontainer to set the hostname once were inside of the confined environment again. 
+we can then use hostname to verify that the hostname is set to mycontainer inside the environment and in the normal shell to verify the host system hostname isnt changed
+however no it is not persistent it changes back the hostname to what it was before.as we re enter the environment to check if the changes was persistent.
+
+https://en.wikipedia.org/wiki/Linux_namespaces
+https://unix.stackexchange.com/questions/183717/whats-a-uts-namespace
