@@ -1,0 +1,116 @@
+
+***************************************************************************
+* Compilation
+***************************************************************************
+Executing: make clean
+Executing: make all
+
+Testing stack object array
+
+Executing: valgrind ./test
+Running:  ['valgrind', './test']
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+'Episode' found, 2 marks
+'All heap blocks were freed -- no leaks are possible' found, 2 marks
+
+Testing stack pointer array
+
+Executing: valgrind ./test
+Running:  ['valgrind', './test']
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+'Episode' found, 2 marks
+'All heap blocks were freed -- no leaks are possible' found, 2 marks
+
+Testing heap object array
+
+Executing: valgrind ./test
+Running:  ['valgrind', './test']
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+'Episode' found, 2 marks
+'All heap blocks were freed -- no leaks are possible' found, 2 marks
+
+Testing heap pointer array
+
+Executing: valgrind ./test
+Running:  ['valgrind', './test']
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+>Podcast info: podcast
+>Episode name: name
+>Episode number: 0
+>Episode content: content
+
+
+'Episode' found, 2 marks
+'All heap blocks were freed -- no leaks are possible' found, 2 marks
+
+
+***************************************************************************
+* Mark: 16/16
+***************************************************************************
+

@@ -1,0 +1,46 @@
+
+***************************************************************************
+* Compilation
+***************************************************************************
+Executing: make clean
+Executing: make all
+
+Testing Podcast class
+
+Executing: ./test
+Dogs Irene 5
+
+>Podcast info: Dogs
+>Episode name: Episode Title: 3
+>Episode number: 3
+>Episode content: Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. Donec lacus nunc, viverra nec, blandit vel, egestas et, augue. Vestibulum tincidunt malesuada tellus. Ut ultrices ultrices enim. Curabitur sit amet mauris. Morbi in dui quis est pulvinar ullamcorper.
+
+
+Dogs found, 2 marks
+Episode Title: 3 found, 2 marks
+
+Testing Podcast destructor
+
+Executing: valgrind ./test
+
+All heap blocks were freed -- no leaks are possible found, 2 marks
+
+Testing Podcast deep copy
+
+Executing: ./test
+Cats Bob 5
+
+>Podcast info: Cats
+>Episode name: Episode Title: 8
+>Episode number: 3
+>Episode content: Vestibulum sapien. Proin quam. Etiam ultrices. Suspendisse in justo eu magna luctus suscipit. Sed lectus. Integer euismod lacus luctus magna. Quisque cursus, metus vitae pharetra auctor, sem massa mattis sem, at interdum magna augue eget diam. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Morbi lacinia molestie dui. Praesent blandit dolor. Sed non quam. In vel mi sit amet augue congue elementum. Morbi in ipsum sit amet pede facilisis laoreet. 
+
+
+Cats found, 2 marks
+Vestibulum sapien found, 2 marks
+
+
+***************************************************************************
+* Mark: 10/10
+***************************************************************************
+

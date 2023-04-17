@@ -1,0 +1,145 @@
+
+***************************************************************************
+* Compilation
+***************************************************************************
+Executing: make clean
+Executing: make all
+Running: ./test2
+
+September 30, 2021, 12, 2
+September 30, 2021, 11, 2
+
+Dates overlap
+
+Successful overlap test
+
+Running: ./test2
+
+September 30, 2021, 11, 2
+September 30, 2021, 12, 2
+
+Dates overlap
+
+Successful overlap test
+
+Running: ./test2
+
+September 30, 2021, 12, 2
+September 30, 2021, 11, 1
+
+Dates do not overlap
+
+Successful overlap test
+
+Running: ./test2
+
+September 30, 2021, 11, 1
+September 30, 2021, 12, 2
+
+Dates do not overlap
+
+Successful overlap test
+
+Running: ./test2
+
+September 29, 2021, 11, 2
+September 30, 2021, 12, 2
+
+Dates do not overlap
+
+Successful overlap test
+
+Running: ./test2
+
+October 30, 2021, 11, 2
+September 30, 2021, 12, 2
+
+Dates do not overlap
+
+Successful overlap test
+
+Running: ./test2
+
+September 30, 2022, 11, 2
+September 30, 2021, 12, 2
+
+Dates do not overlap
+
+Successful overlap test
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 0
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 2
+>Computers: 0
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 2
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 0
+>Has whiteboard: 1
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 0
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 0
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+Running: ./test1
+
+
+>Room name: TestRoom
+>Capacity: 1
+>Computers: 1
+>Has whiteboard: 0
+
+meetsCriteria test successful
+
+
+
+***************************************************************************
+* Mark: 28/28
+***************************************************************************
+
