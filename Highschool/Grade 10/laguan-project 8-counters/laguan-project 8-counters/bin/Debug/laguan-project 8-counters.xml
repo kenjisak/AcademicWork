@@ -1,0 +1,28 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+laguan-project8-counters
+</name>
+</assembly>
+<members>
+<member name="P:laguan_project_8_counters.My.Resources.Resources.ResourceManager">
+	<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member><member name="P:laguan_project_8_counters.My.Resources.Resources.Culture">
+	<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member><member name="P:laguan_project_8_counters.My.Resources.Resources._69923_draven_league_of_legends">
+	<summary>
+  Looks up a localized resource of type System.Drawing.Bitmap.
+</summary>
+</member><member name="T:laguan_project_8_counters.My.Resources.Resources">
+	<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+</members>
+</doc>

@@ -1,0 +1,10 @@
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\bin\Debug\laguan-project 8-counters.exe.config
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\bin\Debug\laguan-project 8-counters.exe
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\bin\Debug\laguan-project 8-counters.pdb
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\bin\Debug\laguan-project 8-counters.xml
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan_project_8_counters.Form1.resources
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan_project_8_counters.Resources.resources
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan-project 8-counters.vbproj.GenerateResource.Cache
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan-project 8-counters.exe
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan-project 8-counters.xml
+c:\users\windows 10\documents\visual studio 2012\Projects\laguan-project 8-counters\laguan-project 8-counters\obj\Debug\laguan-project 8-counters.pdb
