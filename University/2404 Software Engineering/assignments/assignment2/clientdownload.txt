@@ -1,0 +1,17 @@
+/*
+    if(network->getPodcast(podcast,&pod)){//if podcast exists
+        if(podarray->isFull()){//if array isnt full
+            std::cout<<"array is full"<<endl;
+            return false;
+        }else{
+            
+            podcopy = new Podcast(*pod);
+            podarray->addPodcast(podcopy);
+            return true;
+        }
+    }else{
+        std::cout<<"no such podcast"<<endl;
+        return false;
+    }
+    
+    */
