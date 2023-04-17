@@ -1,0 +1,1 @@
+Create a FindThenReplace application that prompts the user for a file name, a search word or phrase, and a replacement word or phrase. After entering the replacement word or phrase, FindAndReplace finds all occurrences of the search word or phase in a file and replaces them with the specified replacement word or phrase.
