@@ -1,0 +1,71 @@
+COMP 3000 2022F Assignment 1
+Name: Isak Laguan
+Student ID: 101160737
+
+Collaborators: https://web.mit.edu/rhel-doc/3/rhel-as-en-3/cfi-directives.html#:~:text=cfi_startproc-,.,architecture%20dependent%20initial%20CFI%20instructions., https://www.cs.mcgill.ca/~cs573/fall2002/notes/lec273/lecture18/18_1.htm, https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html#:~:text=...%2C%20expressionN-,The%20.,evaluate%20to%20an%20integer%20value., https://cs61.seas.harvard.edu/site/2018/Asm1/, https://softwareengineering.stackexchange.com/questions/314563/where-did-exit-1-come-from, https://www.baeldung.com/linux/fork-vfork-exec-clone#:~:text=The%20clone()%20system%20call%20is%20an%20upgraded%20version%20of,the%20parent%20and%20child%20processes., https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html, https://gcc.gnu.org/onlinedocs/gcc/Basic-Asm.html#Basic-Asm, https://man7.org/linux/man-pages/man3/malloc.3.html
+
+
+1. The 3 functions defined are: choose_program(void), run_program(int choice), main().
+run_program is implemented for line 11 - 58
+choose_program is implemented for line 73 - 159
+main function is implemented for line 166 - 184
+
+I know this since the .cfi_startproc indicates the start of a function
+and .cfi_endproc indicates the end of a function.
+https://web.mit.edu/rhel-doc/3/rhel-as-en-3/cfi-directives.html#:~:text=cfi_startproc-,.,architecture%20dependent%20initial%20CFI%20instructions.
+
+2. environ is referenced because its used as a parameter in execve function in the 
+run_program function. Since it is declared as a global variable without any memory assigned to it with extern in 3000menu.c
+its not defined in 3000menu.s and only shows up in gnu assembly when used/referenced.
+https://www.cs.mcgill.ca/~cs573/fall2002/notes/lec273/lecture18/18_1.htm
+
+3. Using a test file that only includes main func and menu declaration, the lines that indicates the defintion of menu character array
+in the 3000menu.s are 194 and 205 - 207.
+
+The definition for the constant string arrays it points to are on lines
+197,199,201,203 using .string directive, and lines 209 - 213 that uses the .quad directive.
+https://docs.oracle.com/cd/E26502_01/html/E28388/eoiyg.html#:~:text=...%2C%20expressionN-,The%20.,evaluate%20to%20an%20integer%20value.
+
+4. The lines 171 - 173 and 180,181,183 in 3000menu.s correspond to lines 72 - 76 in 3000menu.c
+line 171 in s file call = calls the function choose_program as function call occurs in line 73 of the c file
+line 172 in s file cmpl = compares the unsigned values of program(register %eax stored the return value from the prior function call) and QUIT(referenced relatively with register %rip)
+line 173 in s file je   = jumps to .L22 if program and QUIT equal each other
+line 180 in s file movl = moving unsigned value of 0 to the %eax register 
+line 181 in s file addq = adds quadword value of 8 to the %rsp register thats stack pointer that points to the top element on the stack
+line 184 in s file ret = returns from the function which was the value 0 moved earlier onto %eax register
+https://cs61.seas.harvard.edu/site/2018/Asm1/
+
+5. malloc() and free() does not result in additional system calls.
+Through testing and editing the 3000menu.c and removed line 56 - 58 does not change the syscall log file which proves there are no additional system calls made because of these lines.
+Watching the log file there is only the read system call for user input but no system calls like mmap or sbrk are seen right after either.*Note that malloc() and free() use mmap and sbrk system calls to adjust memory according to the manpage
+https://man7.org/linux/man-pages/man3/malloc.3.html
+
+6. The program terminates and exits 
+when pid is 0(line 29 - 35) it runs the program inputted first then exits/terminates the program abnormally(exit(-1)) or trying to indicate theres an error that lead to termination.
+https://softwareengineering.stackexchange.com/questions/314563/where-did-exit-1-come-from
+
+7a. The choice the user selected + 1 which would be the 1 higher choice is set to NULL in the menu array. ex. user inputs 1, the whoami option is changed to NULL. or so I thought however testing shows that all choices after the users selected one doesnt show up in the change.
+
+7b. It doesnt change the menu displayed to the user because the program is set to exit(-1) abnormally, so the parent process is ended since pid is set to equal 0 instead of forking to have a child process to loop back to the parent that shows the change.
+I added line 30 before the wait line on 34 and set pid back to fork(). the change is shown with not just the option after user inputted is changed to NULL but all higher options as well.
+
+
+8. The behaviour changes as the program doesnt loop back into the choice menu right away unless anything is entered.
+This is because the line deletion caused the parent process to terminate before its child since were no longer waiting for the child process to end and becomes an orphan we needs to be adopted by another parent.
+
+9a. I used pwd to print working directory to find the path to 3000menu-q9 binary file and checked for library dependencies with ldd
+and there was shared libaries so this binary is dynamically linked. Also we used lazy linking to compile which is used for linking dynamically.
+
+9b. On line 247 - 251 the fork process uses shared libraries in 3000menu while in 3000menu-q9 it does not and are missing those fork shared library lines.
+Likely this is because we removed the call in assembly for 3000menu-q9 and replaced it with a mov and syscall, the calls are made through system calls instead of using shared libraries.
+
+9c. The system call behaviour differs on the line calling the fork for the c file. 3000menu uses clone() system call while 3000menu-q9 uses fork() system call.
+Since we removed the the assembly line for calling fork and changed it to a system call. system call fork() is used instead to fork or create the child for 3000menu-q9.
+While 3000menu still has the call for fork in its assembly so it uses clone() system call as its the upgraded version of fork and has better control over data between parent and child processes.
+https://www.baeldung.com/linux/fork-vfork-exec-clone#:~:text=The%20clone()%20system%20call%20is%20an%20upgraded%20version%20of,the%20parent%20and%20child%20processes.
+
+9d. It may be possible to modify the 3000menu.c to create identical assembly to 3000menu-q9 using gnu inline assembly, 
+however to be able to do this would mean using asm keyword and using extended asm since were using immediate operands, 
+this asm keyword is a gnu extension of C which is not found in standard C. So wouldn't be able to modify 3000menu to have identical assembly using standard C.
+https://gcc.gnu.org/onlinedocs/gcc/Basic-Asm.html#Basic-Asm
+https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html
