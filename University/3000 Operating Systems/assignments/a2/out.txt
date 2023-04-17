@@ -1,0 +1,7 @@
+3000shell2
+3000shell2.c
+comp3000-assign2-isaklaguan.txt
+err.txt
+in.txt
+Makefile
+out.txt

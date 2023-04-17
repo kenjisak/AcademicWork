@@ -1,0 +1,126 @@
+COMP 3000 2022F Assignment 2
+Name: Isak Laguan
+Student ID: 101160737
+
+Collaborators: https://stackoverflow.com/questions/33076543/setuid-vs-seteuid-function, https://www.gnu.org/software/libc/manual/html_node/Descriptors-and-Streams.html, https://linuxhint.com/dup2_system_call_c/, https://www.mkssoftware.com/docs/man3/creat.3.asp
+
+1.  internal commands are built into the shell and doesnt have a binary path to them. printing the binary path when a command is made for external commands show their path which means theyre external. using internal commands dont print out any binary path.
+    the internal commands are also listed in the prompt_loop when its looking for those commands with strcmp for user input .
+
+    3000shell2.c supports 4 internal commands: exit, pinfo, become, and &
+    3000shell.c supports 3 internal commands: exit, plist, and &
+
+    they have the same exit and & commands, 
+    however the difference is 3000shell supports : plist prints out a list of process ids
+    3000shell2 supports: pinfo that prints out uid, euid, gid, egid so completely different commands. this shell also supports the become command which 3000shell doesnt.
+
+2.  Used gcc -O -g -Wall 3000shell2.c -o 3000shell2 to build and got 2 warnings for setegid and seteuid.
+        pinfo reports the uid, euid, gid, egid which are all = to 1000.
+    Rebuilt the 3000shell2 with the makefile and changed it to support it.
+        pinfo reports the uid, gid, egid which are all = to 1000, however euid is now set to 0 assuming because it was set as root in the make file since it was given permissions through chmod u+s and chown root
+
+3.  line 188 setegid() sets the effective group ID of the calling process with the gid which is retreived by getgid()
+    line 189 seteuid() sets the effective user ID of the calling process with the uid which is retreived by getgid()
+
+    it calls these functions when there isnt a proper supported command like cd, since there arent any running processes for non supported commands
+        this is to try to execute these commands with privileges of the effective user and group so that it doesnt use root privileges.
+        not really doing something useful since there isnt any program to run anyway, once these lines are removed the functionality still remains the same.
+    
+    https://stackoverflow.com/questions/33076543/setuid-vs-seteuid-function 
+
+4.  you write become user externalcommand as for the syntax to call it in command line
+        user being a valid user and externalcommand supported by 3000shell2 such as ls or ps 
+
+5.  what must be true for become command to work is, the user entered has to be valid in the list. you can use cat /etc/passwd and at the left of everyline is the user names. so inputted must be one of these to work 
+    as well as a valid external command, 
+        since pinfo or exit which are an internal command doesnt work with this as it cant find the file or directory
+
+6. 
+    if(isdigit(username[0])){//if first char is digit then 
+            pw_entry = getpwuid(atoi(username));//uses student as username since uid is given
+    }else{
+            pw_entry = getpwnam(username);//finds given username
+    }
+this block was added in place of pw_entry = getpwnam(username); to check if the input was a uid or username and set pw_entry accordingly either with getting through the uid or username
+///////////////////////////////////////////////////////////////////////////////////
+    if(isdigit(username[0])){//if input is a digit then uid is given
+            result = setuid(atoi(username));//set uid to converted input
+            if (result != 0) {
+                    fprintf(stderr, "Failed to change to uid %d\n",
+                            atoi(username));
+                    exit(-4);
+            }
+    }else{
+            result = setuid(pw_entry->pw_gid);//otherwise username is given
+            if (result != 0) {
+                    fprintf(stderr, "Failed to change to uid %d\n",
+                            pw_entry->pw_gid);
+                    exit(-4);
+            }
+    }
+this block was added in place of result = setuid(pw_entry->pw_gid); to check if the input was a uid or username and set result accordingly either with converted input to number and setting that uid or getting the uid when username was given through pw_entry
+
+7.      Running the shell as setuid root only gives root permissions to the current user so their euid is set to 0 while uid,gid,and egid is still set to their respective ids for my student user its 1000. checked with pinfo.
+        When running the shell as root this gives root permissions for everything, user and group and effective user and group. so euid, uid, gid, and egid are all set to 0. checked with pinfo
+
+        the behaviour still runs the same for the become command as setuid root still gives us root permissions.
+        if you run it as normal without running the shell as root then youre not able to become any other user and use a command as all ids are set to their respective user id and not root id which is 0
+
+        to be able to run as root i had to set the root password using sudo passwd root then log in as root with su, i then ran the shell as root.
+
+8.      output redirection doesnt work for exit and pinfo however it does for become. this is because in the prompt_loop exit and pinfo run their own functions which doesnt implement outpur redirection.
+        however become allows for output redirection as well as any external commands because it uses the run_program() function to run and implements output redirection by passing stdout.
+
+9.      this was added right underneath the & command. to handle background command. it sets filenames of standard:input,ouput,error using the arguements passed.
+        checks if arguements passed were 5 at least, since arguement for background, stdin filename, stdout filename, stderr, filename, and program
+                otherwise it will stderr that there isnt enough arguements
+        then sets arg to the program name which is then passed to  run_program
+
+                stdin_fn = NULL;
+                stdout_fn = NULL;
+                stderr_fn = NULL;
+                if (strcmp(args[0], "background") == 0) {//checks if first args is background if it is then
+                        fprintf(stdout,"heres background working\n");
+                        if (nargs > 4) {//background input.txt ouput.txt error.txt ls
+                                background = 1;
+                                stdin_fn = args[1];
+                                stdout_fn = args[2];
+                                stderr_fn = args[3];
+
+                                args = args + 4;
+                                nargs = nargs - 4;
+                        } else {
+                                fprintf(stderr,
+                                        "ERROR: background needs 4 other arguements: stdin , stdout, stderr, program\n");
+                        }
+                }
+///////////////////////////////////////////////////////////////////////////////////
+run_program(args, background, stdin_fn, stdout_fn, stderr_fn , path, envp, new_user); run_program edited to accordingly to accomodate new parameters for std. matched with its function definition.
+/////////////////////////////////////////////////////////////////////////////
+                if (stdin_fn != NULL) {
+                        fd = creat(stdin_fn, 0666);
+                        dup2(fd, 0);
+                        close(fd);
+                }
+
+                if (stdout_fn != NULL) {
+                        fd = creat(stdout_fn, 0666);
+                        dup2(fd, 1);
+                        close(fd);
+                }
+                if (stderr_fn != NULL) {
+                        fd = creat(stderr_fn, 0666);
+                        dup2(fd, 2);
+                        close(fd);
+                }
+                this was added in run_program to handle writing standard to files
+                sets file descriptor to creat(filename, permissions)
+                dup2(file descriptor, 0) writes to the file thats been created and uses 0 or STDIN_FILENO , 1 or STDOUT_FILENO , 2 or STDERR_FILENO
+                then closes the file descriptor
+https://www.gnu.org/software/libc/manual/html_node/Descriptors-and-Streams.html
+https://linuxhint.com/dup2_system_call_c/
+https://www.mkssoftware.com/docs/man3/creat.3.asp
+
+10. can ensure that background can be combined with become by handling the arguements after background and file names so args + 4 and adding inside the if statement of nargs > 4 the code to handle become command inside of 
+prompt_loop which is approximately line 27 - 287 with my own version of my code with my modifications and also modify so that it comparing the args[4] = "become" and new_user = args[5] instead.  and then calling run_program right after the become command handler.
+        this would work since its appropriately handling the become command. since lets say ls is the args passed in the run_program line thats at the end of prompt_loop, the modifications of args allows the run_program inside of background to handle become command properly.
