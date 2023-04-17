@@ -1,0 +1,1 @@
+c:\users\windows 10\documents\visual studio 2012\Projects\ezinvaders\ezinvaders\bin\Debug\ezinvaders.exe.config
